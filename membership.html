@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Apply for membership at Moonlight Library.">
   <link rel="stylesheet" href="csslab.css">
+  <script src="script.js" defer></script>
   <title>Moonlight Library | Membership</title>
 </head>
 <body>
@@ -34,7 +35,8 @@
 
     <section>
       <h2>Application form</h2>
-      <form action="membership.html" method="post">
+      <form action="membership.html" method="post" id="membership-form" novalidate>
+        <div class="form-message" aria-live="polite"></div>
         <fieldset>
           <legend>Personal information</legend>
           <p><label for="full-name">Full name:</label><br><input type="text" id="full-name" name="full_name" required></p>

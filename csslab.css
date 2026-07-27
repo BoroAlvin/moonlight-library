@@ -407,3 +407,77 @@ footer a {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* JavaScript-enhanced states */
+.theme-button {
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: white;
+  padding: 0.5rem 0.85rem;
+}
+
+.theme-button:hover {
+  color: var(--navy);
+}
+
+.warm-theme {
+  --navy: #4f2f23;
+  --navy-light: #714733;
+  --gold: #f1b95b;
+  --gold-dark: #8c5218;
+  --cream: #fff5e6;
+  --line: #e6cfb4;
+}
+
+.welcome-panel {
+  background: linear-gradient(135deg, #fff, #fff0c9);
+  border-left: 7px solid var(--gold);
+}
+
+.is-hidden {
+  display: none;
+}
+
+.content-highlight {
+  color: var(--success);
+  font-weight: 700;
+}
+
+.form-message {
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+
+.error-message,
+.success-message {
+  border: 1px solid;
+  padding: 0.75rem 1rem;
+}
+
+.error-message {
+  background: #fff0f0;
+  border-color: #c63838;
+  color: #8b1e1e;
+}
+
+.success-message {
+  background: #eaf8f1;
+  border-color: var(--success);
+  color: #185e42;
+}
+
+.input-error {
+  border-color: #c63838;
+  box-shadow: 0 0 0 3px rgba(198, 56, 56, 0.15);
+}
+
+.selected-card .flip-card-front,
+.selected-card .flip-card-back {
+  box-shadow: 0 0 0 5px var(--gold), var(--shadow);
+}
+
+.status-message {
+  margin: 1rem auto 0;
+  max-width: 650px;
+}
