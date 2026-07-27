@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Upcoming workshops, reading circles, and activities at Moonlight Library.">
+  <title>Moonlight Library | Events</title>
+</head>
+<body>
+  <header id="top">
+    <h1>🗓️ Events &amp; Activities</h1>
+    <nav aria-label="Main navigation">
+      <a href="index.html">Home</a> |
+      <a href="catalogue.html">Book Catalogue</a> |
+      <a href="events.html" aria-current="page">Events</a> |
+      <a href="membership.html">Join the Library</a> |
+      <a href="contact.html">Contact Us</a>
+    </nav>
+    <hr>
+  </header>
+
+  <main>
+    <section>
+      <h2>August 2026 calendar</h2>
+      <table border="1">
+        <caption>All events are free unless stated otherwise</caption>
+        <thead><tr><th scope="col">Date</th><th scope="col">Event</th><th scope="col">Audience</th><th scope="col">Venue</th></tr></thead>
+        <tbody>
+          <tr><td><time datetime="2026-08-01">1 Aug</time></td><td>Saturday Story Circle</td><td>Everyone</td><td>Reading Garden</td></tr>
+          <tr><td><time datetime="2026-08-08">8 Aug</time></td><td>Build Your First Web Page</td><td>Beginners</td><td>Computer Room</td></tr>
+          <tr><td><time datetime="2026-08-15">15 Aug</time></td><td>Poetry Under the Moon</td><td>Ages 16+</td><td>Courtyard</td></tr>
+          <tr><td><time datetime="2026-08-22">22 Aug</time></td><td>Research Skills Workshop</td><td>Students</td><td>Study Hall</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Event details</h2>
+      <details open>
+        <summary><strong>Saturday Story Circle</strong></summary>
+        <p>Share a five-minute story or listen to voices from the community. Tea is provided; imagination is required!</p>
+      </details>
+      <details>
+        <summary><strong>Build Your First Web Page</strong></summary>
+        <p>Learn headings, paragraphs, links, lists, tables, and forms using pure HTML. Bring a laptop if possible.</p>
+      </details>
+      <details>
+        <summary><strong>Poetry Under the Moon</strong></summary>
+        <p>An evening of spoken word and acoustic music. Performers should register before <time datetime="2026-08-12">12 August</time>.</p>
+      </details>
+    </section>
+
+    <section>
+      <h2>Reserve a seat</h2>
+      <form action="events.html" method="post">
+        <fieldset>
+          <legend>Event booking</legend>
+          <p><label for="event-name">Your name:</label><br><input type="text" id="event-name" name="name" required></p>
+          <p><label for="event-email">Email:</label><br><input type="email" id="event-email" name="email" required></p>
+          <p><label for="event-choice">Choose an event:</label><br>
+            <select id="event-choice" name="event" required>
+              <option value="">-- Select --</option>
+              <option>Saturday Story Circle</option>
+              <option>Build Your First Web Page</option>
+              <option>Poetry Under the Moon</option>
+              <option>Research Skills Workshop</option>
+            </select>
+          </p>
+          <p><label><input type="checkbox" name="reminder"> Send me an email reminder</label></p>
+          <button type="submit">Reserve seat</button>
+        </fieldset>
+      </form>
+    </section>
+  </main>
+
+  <footer><hr><p><small>&copy; 2026 Moonlight Library</small></p><p><a href="#top">Back to top ↑</a></p></footer>
+</body>
+</html>

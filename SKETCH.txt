@@ -1,0 +1,30 @@
+MOONLIGHT LIBRARY — PAGE SKETCH / WIREFRAME
+============================================
+
+Every page
++----------------------------------------------------------+
+| 🌙 PAGE TITLE                                             |
+| Home | Catalogue | Events | Join | Contact               |
++----------------------------------------------------------+
+|                                                          |
+|  MAIN PAGE HEADING                                       |
+|  Introductory text                                       |
+|                                                          |
+|  +----------------------+  +--------------------------+  |
+|  | Main content         |  | Supporting information   |  |
+|  | lists / tables /     |  | hours / tips / details   |  |
+|  | event details        |  |                          |  |
+|  +----------------------+  +--------------------------+  |
+|                                                          |
+|  Form or call-to-action                                  |
++----------------------------------------------------------+
+| © 2026 Moonlight Library                  Back to top ↑   |
++----------------------------------------------------------+
+
+PAGE CONTENT PLAN
+-----------------
+1. HOME: Welcome, services, featured shelf, event, hours
+2. CATALOGUE: Search, categories, book tables, staff pick
+3. EVENTS: Calendar, expandable details, seat reservation
+4. MEMBERSHIP: Benefits and detailed application form
+5. CONTACT: Address, message form, frequently asked questions

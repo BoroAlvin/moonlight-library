@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact and visit Moonlight Library.">
+  <title>Moonlight Library | Contact Us</title>
+</head>
+<body>
+  <header id="top">
+    <h1>📍 Contact Moonlight Library</h1>
+    <nav aria-label="Main navigation">
+      <a href="index.html">Home</a> |
+      <a href="catalogue.html">Book Catalogue</a> |
+      <a href="events.html">Events</a> |
+      <a href="membership.html">Join the Library</a> |
+      <a href="contact.html" aria-current="page">Contact Us</a>
+    </nav>
+    <hr>
+  </header>
+
+  <main>
+    <section>
+      <h2>Visit or reach us</h2>
+      <address>
+        Moonlight Library<br>
+        18 Knowledge Lane<br>
+        Nairobi, Kenya<br><br>
+        Telephone: <a href="tel:+254700123456">+254 700 123 456</a><br>
+        Email: <a href="mailto:hello@moonlightlibrary.example">hello@moonlightlibrary.example</a>
+      </address>
+    </section>
+
+    <section>
+      <h2>Send a message</h2>
+      <form action="contact.html" method="post">
+        <p><label for="contact-name">Name:</label><br><input type="text" id="contact-name" name="name" required></p>
+        <p><label for="contact-email">Email:</label><br><input type="email" id="contact-email" name="email" required></p>
+        <p><label for="subject">Subject:</label><br><input type="text" id="subject" name="subject" list="subjects"></p>
+        <datalist id="subjects"><option value="Book enquiry"><option value="Membership"><option value="Event booking"><option value="Suggestion"></datalist>
+        <p><label for="message">Message:</label><br><textarea id="message" name="message" rows="6" cols="45" required></textarea></p>
+        <p><label for="satisfaction">How helpful is our website? (1–10)</label><br><input type="range" id="satisfaction" name="rating" min="1" max="10" value="8"></p>
+        <button type="submit">Send message</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Frequently asked questions</h2>
+      <details><summary>How many books may I borrow?</summary><p>Members may borrow up to five books at a time.</p></details>
+      <details><summary>How long may I keep a book?</summary><p>The standard loan period is 14 days.</p></details>
+      <details><summary>Is membership free?</summary><p>Student membership is free. Ask at the desk about other membership categories.</p></details>
+    </section>
+  </main>
+
+  <footer><hr><p><small>&copy; 2026 Moonlight Library</small></p><p><a href="#top">Back to top ↑</a></p></footer>
+</body>
+</html>

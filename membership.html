@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Apply for membership at Moonlight Library.">
+  <title>Moonlight Library | Membership</title>
+</head>
+<body>
+  <header id="top">
+    <h1>✨ Join Moonlight Library</h1>
+    <nav aria-label="Main navigation">
+      <a href="index.html">Home</a> |
+      <a href="catalogue.html">Book Catalogue</a> |
+      <a href="events.html">Events</a> |
+      <a href="membership.html" aria-current="page">Join the Library</a> |
+      <a href="contact.html">Contact Us</a>
+    </nav>
+    <hr>
+  </header>
+
+  <main>
+    <section>
+      <h2>Membership benefits</h2>
+      <ul>
+        <li>Borrow up to five books for 14 days</li>
+        <li>Reserve books from the catalogue</li>
+        <li>Use study rooms and library computers</li>
+        <li>Receive early invitations to special events</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Application form</h2>
+      <form action="membership.html" method="post">
+        <fieldset>
+          <legend>Personal information</legend>
+          <p><label for="full-name">Full name:</label><br><input type="text" id="full-name" name="full_name" required></p>
+          <p><label for="birth-date">Date of birth:</label><br><input type="date" id="birth-date" name="birth_date" required></p>
+          <p><label for="email">Email address:</label><br><input type="email" id="email" name="email" required></p>
+          <p><label for="phone">Phone number:</label><br><input type="tel" id="phone" name="phone" placeholder="+254 700 000 000"></p>
+          <p><label for="address">Home address:</label><br><textarea id="address" name="address" rows="3" cols="35" required></textarea></p>
+        </fieldset>
+
+        <fieldset>
+          <legend>Membership preferences</legend>
+          <p>Membership type:</p>
+          <p>
+            <label><input type="radio" name="type" value="student" required> Student</label><br>
+            <label><input type="radio" name="type" value="adult"> Adult</label><br>
+            <label><input type="radio" name="type" value="senior"> Senior</label>
+          </p>
+          <p><label for="genre">Favourite genre:</label><br>
+            <select id="genre" name="genre">
+              <option>Fiction</option><option>History</option><option>Science &amp; Technology</option><option>Biography</option><option>Poetry</option>
+            </select>
+          </p>
+          <p><label><input type="checkbox" name="newsletter" checked> Subscribe to the monthly newsletter</label></p>
+        </fieldset>
+
+        <p><label><input type="checkbox" name="agreement" required> I agree to follow the library rules.</label></p>
+        <p><button type="submit">Submit application</button> <button type="reset">Clear form</button></p>
+      </form>
+    </section>
+  </main>
+
+  <footer><hr><p><small>&copy; 2026 Moonlight Library</small></p><p><a href="#top">Back to top ↑</a></p></footer>
+</body>
+</html>
