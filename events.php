@@ -1,10 +1,12 @@
 <?php
+// MEMBER EVENTS: retrieves future events and shows whether the current member reserved each one.
 declare(strict_types=1);
 require __DIR__ . '/member_auth.php';
 requireMember();
 require __DIR__ . '/db.php';
 require __DIR__ . '/member_nav.php';
 $memberId = memberIsLoggedIn() ? $_SESSION['member_id'] : 0;
+// MYSQLI RETRIEVAL: the EXISTS subquery checks this member's reservation status.
 $statement = $mysqli->prepare('SELECT e.id, e.title, e.event_date, e.event_time, e.audience, e.venue, e.description, EXISTS(SELECT 1 FROM event_reservations r WHERE r.event_id = e.id AND r.member_id = ?) AS reserved FROM events e WHERE e.event_date >= CURRENT_DATE ORDER BY e.event_date, e.event_time');
 $statement->bind_param('i', $memberId);
 $statement->execute();

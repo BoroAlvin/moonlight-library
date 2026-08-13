@@ -1,4 +1,5 @@
 <?php
+// ADMIN EVENTS: lets an authenticated administrator publish and view library events.
 declare(strict_types=1);
 require __DIR__ . '/admin_auth.php';
 requireAdmin();
@@ -7,6 +8,7 @@ require __DIR__ . '/db.php';
 $errors = [];
 $success = isset($_GET['created']);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // SERVER-SIDE VALIDATION: never trust browser input without checking it again in PHP.
     $token = (string) ($_POST['csrf_token'] ?? '');
     $title = trim((string) ($_POST['title'] ?? ''));
     $date = trim((string) ($_POST['event_date'] ?? ''));
@@ -26,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($description === '' || mb_strlen($description) > 2000) $errors[] = 'Enter a description of up to 2,000 characters.';
 
     if (!$errors) {
+        // MYSQLI INSERTION: save the validated event using a prepared statement.
         $statement = $mysqli->prepare('INSERT INTO events (title, event_date, event_time, audience, venue, description) VALUES (?, ?, ?, ?, ?, ?)');
         $statement->bind_param('ssssss', $title, $date, $time, $audience, $venue, $description);
         $statement->execute();
@@ -34,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+// MYSQLI RETRIEVAL: load published events for the administrator dashboard.
 $events = $mysqli->query('SELECT id, title, event_date, event_time, venue FROM events ORDER BY event_date, event_time');
 function e(string $value): string { return htmlspecialchars($value, ENT_QUOTES, 'UTF-8'); }
 ?>

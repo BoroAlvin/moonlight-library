@@ -1,4 +1,5 @@
 <?php
+// ADMIN BOOKS: add newly acquired books and update the status of existing catalogue books.
 declare(strict_types=1);
 require __DIR__ . '/admin_auth.php';
 requireAdmin();
@@ -9,11 +10,13 @@ $statuses = ['available', 'loaned', 'coming_soon', 'unavailable'];
 $statusLabels = ['available' => 'Available', 'loaned' => 'Loaned', 'coming_soon' => 'Coming Soon', 'unavailable' => 'Unavailable'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // The hidden operation field selects either the add-book or update-status workflow.
     $token = (string) ($_POST['csrf_token'] ?? '');
     $operation = (string) ($_POST['operation'] ?? 'add');
     if (!hash_equals(adminCsrfToken(), $token)) $errors[] = 'Your session expired. Please try again.';
 
     if ($operation === 'update_status') {
+        // STATUS UPDATE: only the four approved status values are accepted.
         $bookId = filter_input(INPUT_POST, 'book_id', FILTER_VALIDATE_INT);
         $status = (string) ($_POST['status'] ?? '');
         if (!$bookId) $errors[] = 'Choose a valid book.';
@@ -26,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
     } elseif ($operation === 'add') {
+    // NEW BOOK: collect and validate the book, category, format, and initial status.
     $title = trim((string) ($_POST['title'] ?? ''));
     $author = trim((string) ($_POST['author'] ?? ''));
     $format = trim((string) ($_POST['format'] ?? ''));
@@ -41,6 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$errors) {
         $mysqli->begin_transaction();
         try {
+            // DATABASE TRANSACTION: create/reuse the category and insert the book as one operation.
             $categoryStatement = $mysqli->prepare('INSERT INTO book_categories (name) VALUES (?) ON DUPLICATE KEY UPDATE id = LAST_INSERT_ID(id)');
             $categoryStatement->bind_param('s', $categoryName);
             $categoryStatement->execute();
@@ -62,6 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+// DATABASE RETRIEVAL: populate category suggestions and the current catalogue table.
 $categoryOptions = $mysqli->query('SELECT name FROM book_categories ORDER BY name');
 $books = $mysqli->query('SELECT b.id, b.title, b.author, b.format, b.status, c.name AS category FROM books b JOIN book_categories c ON c.id = b.category_id ORDER BY b.created_at DESC, b.title');
 function e(string $value): string { return htmlspecialchars($value, ENT_QUOTES, 'UTF-8'); }

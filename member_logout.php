@@ -1,4 +1,5 @@
 <?php
+// MEMBER LOGOUT: destroys the authenticated session and returns to the login page.
 declare(strict_types=1);
 require __DIR__ . '/member_auth.php';
 $_SESSION = [];

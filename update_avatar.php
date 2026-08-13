@@ -1,4 +1,5 @@
 <?php
+// AVATAR PROCESSING: validates uploaded images and safely updates the member's profile picture.
 declare(strict_types=1);
 require __DIR__ . '/member_auth.php';
 requireMember();
@@ -36,6 +37,7 @@ if (!$upload || $upload['error'] !== UPLOAD_ERR_OK || $upload['size'] > 2 * 1024
     exit;
 }
 
+// FILE SECURITY: trust detected MIME content rather than the original filename extension.
 $mime = (new finfo(FILEINFO_MIME_TYPE))->file($upload['tmp_name']);
 $extensions = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp'];
 if (!isset($extensions[$mime]) || @getimagesize($upload['tmp_name']) === false) {

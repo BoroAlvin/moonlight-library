@@ -1,4 +1,5 @@
 <?php
+// MEMBERSHIP PROCESSING: receives the registration POST request, validates it, and inserts a member.
 declare(strict_types=1);
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -11,6 +12,7 @@ function clean(string $key): string
     return trim($_POST[$key] ?? '');
 }
 
+// FORM DATA: read each submitted field from PHP's $_POST array.
 $fullName = clean('full_name');
 $birthDate = clean('birth_date');
 $email = clean('email');
@@ -25,6 +27,7 @@ $allowedTypes = ['student', 'adult', 'senior'];
 $allowedGenres = ['Fiction', 'History', 'Science & Technology', 'Biography', 'Poetry'];
 $errors = [];
 
+// SERVER-SIDE VALIDATION: repeat essential checks even when JavaScript validation passes.
 if ($fullName === '' || mb_strlen($fullName) > 100) $errors[] = 'Enter a full name of up to 100 characters.';
 $birthDateValue = DateTimeImmutable::createFromFormat('!Y-m-d', $birthDate);
 if (!$birthDateValue || $birthDateValue->format('Y-m-d') !== $birthDate) $errors[] = 'Enter a valid date of birth.';
@@ -40,6 +43,7 @@ if (!in_array($genre, $allowedGenres, true)) $errors[] = 'Choose a valid favouri
 if (!$agreement) $errors[] = 'You must agree to the library rules.';
 
 if (!$errors) {
+    // SECURE INSERTION: hash the password, then store the member with a prepared statement.
     require __DIR__ . '/db.php';
     $email = strtolower($email);
     $passwordHash = password_hash($password, PASSWORD_DEFAULT);

@@ -1,4 +1,5 @@
 <?php
+// ADMIN AUTHENTICATION: starts a secure session, protects admin pages, and creates CSRF tokens.
 declare(strict_types=1);
 
 ini_set('session.use_strict_mode', '1');

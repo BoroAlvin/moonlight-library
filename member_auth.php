@@ -1,4 +1,5 @@
 <?php
+// MEMBER AUTHENTICATION: manages member sessions, protected pages, and CSRF tokens.
 declare(strict_types=1);
 
 ini_set('session.use_strict_mode', '1');

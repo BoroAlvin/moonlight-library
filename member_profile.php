@@ -1,10 +1,12 @@
 <?php
+// MEMBER PROFILE: retrieves membership details, avatar, and upcoming event reservations.
 declare(strict_types=1);
 require __DIR__ . '/member_auth.php';
 requireMember();
 require __DIR__ . '/db.php';
 require __DIR__ . '/member_nav.php';
 
+// MYSQLI RETRIEVAL: load only the record belonging to the authenticated member.
 $statement = $mysqli->prepare('SELECT full_name, birth_date, email, avatar_filename, phone, home_address, membership_type, favourite_genre, newsletter, created_at FROM members WHERE id = ?');
 $statement->bind_param('i', $_SESSION['member_id']);
 $statement->execute();

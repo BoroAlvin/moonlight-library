@@ -1,4 +1,5 @@
 <?php
+// CONTACT PAGE: protected contact information and a client-side demonstration form.
 declare(strict_types=1);
 require __DIR__ . '/member_auth.php';
 requireMember();
@@ -44,6 +45,7 @@ require __DIR__ . '/member_nav.php';
 
     <section>
       <h2>Send a message</h2>
+      <!-- JAVASCRIPT VALIDATION DEMO: data-demo-form validates locally without saving data. -->
       <form action="contact.php" method="post" data-demo-form>
         <p><label for="contact-name">Name:</label><br><input type="text" id="contact-name" name="name" required></p>
         <p><label for="contact-email">Email:</label><br><input type="email" id="contact-email" name="email" required></p>

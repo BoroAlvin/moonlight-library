@@ -1,4 +1,5 @@
 <?php
+// MEMBER NAVIGATION: builds the reusable profile link and avatar shown in page navigation.
 declare(strict_types=1);
 
 function memberProfileNavigation(mysqli $mysqli, bool $onProfile = false): string

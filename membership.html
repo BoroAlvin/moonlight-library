@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- MEMBER REGISTRATION PAGE: semantic HTML form submitted to PHP using POST. -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -19,6 +20,7 @@
   </header>
 
   <main>
+    <!-- WEBSITE PURPOSE: explains the benefits offered to registered library members. -->
     <section class="supporting-card">
       <h2>Membership benefits</h2>
       <ul>
@@ -31,8 +33,10 @@
 
     <section>
       <h2>Application form</h2>
+      <!-- PHP FORM PROCESSING: POST sends the completed application to process_membership.php. -->
       <form action="process_membership.php" method="post" id="membership-form" novalidate>
         <div class="form-message" aria-live="polite"></div>
+        <!-- SEMANTIC HTML: fieldsets group related form controls and legends describe them. -->
         <fieldset>
           <legend>Personal information</legend>
           <p><label for="full-name">Full name:</label><br><input type="text" id="full-name" name="full_name" maxlength="100" required></p>

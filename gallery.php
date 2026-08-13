@@ -1,4 +1,5 @@
 <?php
+// MEMBER GALLERY: protected, keyboard-accessible interactive library gallery.
 declare(strict_types=1);
 require __DIR__ . '/member_auth.php';
 requireMember();
@@ -37,6 +38,7 @@ require __DIR__ . '/member_nav.php';
       <p id="gallery-status" class="status-message" aria-live="polite">Select a card to mark your favourite library space.</p>
     </section>
 
+    <!-- JAVASCRIPT INTERACTION: cards respond to mouse clicks and keyboard Enter/Space. -->
     <section class="gallery-grid full-width" aria-label="Library photo gallery">
       <figure class="flip-card" tabindex="0" role="button" aria-expanded="false" aria-label="The Grand Reading Hall: flip card and mark as favourite">
         <div class="flip-card-inner">

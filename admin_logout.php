@@ -1,4 +1,5 @@
 <?php
+// ADMIN LOGOUT: clears session data and removes the session cookie.
 declare(strict_types=1);
 require __DIR__ . '/admin_auth.php';
 

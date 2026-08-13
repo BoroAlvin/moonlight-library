@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
 
+/* DESIGN SYSTEM: reusable colours, spacing, shadows, and radiuses ensure consistency. */
 :root {
   --navy: #17233b;
   --navy-light: #243754;
@@ -81,6 +82,7 @@ footer hr {
   display: none;
 }
 
+/* FLEXBOX EXAMPLE: navigation is a one-dimensional row that can wrap. */
 nav {
   display: flex;
   flex-wrap: wrap;
@@ -155,6 +157,7 @@ nav a[aria-current="page"] {
   width: 140px;
 }
 
+/* CSS GRID EXAMPLE: the main content uses a two-column responsive page layout. */
 main {
   display: grid;
   gap: 1.5rem;
@@ -263,6 +266,7 @@ form {
   width: 100%;
 }
 
+/* CSS GRID EXAMPLE: event cards automatically adapt to the available width. */
 .event-grid {
   display: grid;
   gap: 1.25rem;
@@ -306,6 +310,7 @@ form {
   padding: 0.75rem 0;
 }
 
+/* FLEXBOX EXAMPLE: align each status selector and update button in one row. */
 .inline-status-form {
   align-items: center;
   display: flex;
@@ -422,6 +427,7 @@ summary {
   text-align: center;
 }
 
+/* CSS GRID EXAMPLE: gallery cards form a responsive three-column layout. */
 .gallery-grid {
   display: grid;
   gap: 1.5rem;
@@ -533,6 +539,7 @@ footer a {
   color: #f3d38c;
 }
 
+/* RESPONSIVE DESIGN: collapse larger layouts for tablets and phones. */
 @media (max-width: 800px) {
   main {
     grid-template-columns: 1fr;
@@ -626,7 +633,7 @@ footer a {
   }
 }
 
-/* JavaScript-enhanced states */
+/* JAVASCRIPT-ENHANCED STATES: classes toggled by script.js. */
 .theme-button {
   background: transparent;
   border: 1px solid var(--gold);
@@ -720,6 +727,7 @@ footer a {
   overflow-x: auto;
 }
 
+/* BOOK STATUS DESIGN: shared badge shape plus a distinct colour for each state. */
 .status-badge {
   border-radius: 999px;
   display: inline-block;

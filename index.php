@@ -1,4 +1,5 @@
 <?php
+// MEMBER HOME PAGE: protected landing page containing the main JavaScript interactions.
 declare(strict_types=1);
 require __DIR__ . '/member_auth.php';
 requireMember();
@@ -32,6 +33,7 @@ require __DIR__ . '/member_nav.php';
   </header>
 
   <main>
+    <!-- JAVASCRIPT INTERACTION: personalized welcome stored locally in the browser. -->
     <section class="welcome-panel full-width" aria-live="polite">
       <h2 id="welcome-message">Welcome to Moonlight Library</h2>
       <p id="welcome-note">We are glad you stopped by.</p>
@@ -43,6 +45,7 @@ require __DIR__ . '/member_nav.php';
       </form>
     </section>
 
+    <!-- JAVASCRIPT INTERACTION: random recommendations and a show/hide library fact. -->
     <section>
       <h2>Welcome, curious reader!</h2>
       <p>Moonlight Library is a community library for readers, researchers, dreamers, and lifelong learners. Explore our shelves, attend a reading circle, or find a quiet corner to study.</p>

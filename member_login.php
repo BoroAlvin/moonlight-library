@@ -1,4 +1,5 @@
 <?php
+// MEMBER LOGIN: retrieves the member by email and verifies the stored password hash.
 declare(strict_types=1);
 require __DIR__ . '/member_auth.php';
 require __DIR__ . '/db.php';
@@ -10,6 +11,7 @@ if (memberIsLoggedIn()) {
 
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // POST PROCESSING: validate the token and submitted email before querying MySQL.
     $email = strtolower(trim((string) ($_POST['email'] ?? '')));
     $password = (string) ($_POST['password'] ?? '');
     $validToken = isset($_POST['csrf_token']) && hash_equals(memberCsrfToken(), (string) $_POST['csrf_token']);
@@ -22,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($validToken && $member && password_verify($password, $member['password_hash'])) {
+        // LOGIN SUCCESS: store only the member ID in the authenticated session.
         session_regenerate_id(true);
         $_SESSION['member_id'] = (int) $member['id'];
         unset($_SESSION['member_csrf']);

@@ -1,4 +1,5 @@
 <?php
+// DATABASE CONNECTION: shared MySQLi connection used by all database-driven pages.
 declare(strict_types=1);
 
 // XAMPP defaults are root with a blank password. Environment variables can

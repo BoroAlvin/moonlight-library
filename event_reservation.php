@@ -1,4 +1,5 @@
 <?php
+// EVENT PROCESSING: handles reservation and cancellation POST requests for logged-in members.
 declare(strict_types=1);
 require __DIR__ . '/member_auth.php';
 requireMember();
@@ -18,6 +19,7 @@ if (!hash_equals(memberCsrfToken(), $token) || !$eventId || !in_array($action, [
 }
 
 if ($action === 'reserve') {
+    // INSERT IGNORE plus the unique database key prevents duplicate reservations.
     $statement = $mysqli->prepare('INSERT IGNORE INTO event_reservations (member_id, event_id) SELECT ?, id FROM events WHERE id = ? AND event_date >= CURRENT_DATE');
     $statement->bind_param('ii', $_SESSION['member_id'], $eventId);
     $statement->execute();
@@ -30,6 +32,7 @@ if ($action === 'reserve') {
         $message = $lookup->get_result()->fetch_column() ? 'already' : 'invalid';
     }
 } else {
+    // CANCELLATION: remove only the reservation owned by the logged-in member.
     $statement = $mysqli->prepare('DELETE FROM event_reservations WHERE member_id = ? AND event_id = ?');
     $statement->bind_param('ii', $_SESSION['member_id'], $eventId);
     $statement->execute();

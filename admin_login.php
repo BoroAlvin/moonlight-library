@@ -1,4 +1,5 @@
 <?php
+// ADMIN LOGIN: verifies an administrator email/password stored in MySQL.
 declare(strict_types=1);
 require __DIR__ . '/admin_auth.php';
 require __DIR__ . '/db.php';
@@ -10,12 +11,14 @@ if (adminIsLoggedIn()) {
 
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // PHP FORM PROCESSING: validate the CSRF token and read submitted credentials.
     $validToken = isset($_POST['csrf_token'])
         && hash_equals(adminCsrfToken(), (string) $_POST['csrf_token']);
     $email = strtolower(trim((string) ($_POST['email'] ?? '')));
     $validCredentials = false;
 
     if ($validToken && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        // MYSQLI RETRIEVAL: prepared statements keep user input separate from SQL instructions.
         $statement = $mysqli->prepare('SELECT id, email, password_hash FROM administrators WHERE email = ? LIMIT 1');
         $statement->bind_param('s', $email);
         $statement->execute();
@@ -25,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($validCredentials) {
+        // AUTHENTICATION SUCCESS: regenerate the session ID to prevent session fixation.
         session_regenerate_id(true);
         $_SESSION['admin_authenticated'] = true;
         $_SESSION['admin_id'] = (int) $admin['id'];

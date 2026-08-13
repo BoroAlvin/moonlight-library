@@ -1,8 +1,10 @@
 <?php
+// ADMIN MEMBER RECORDS: retrieves and displays registered members from MySQL.
 declare(strict_types=1);
 require __DIR__ . '/admin_auth.php';
 requireAdmin();
 require __DIR__ . '/db.php';
+// MYSQLI RETRIEVAL: order the newest membership records first.
 $result = $mysqli->query('SELECT id, full_name, email, membership_type, favourite_genre, newsletter, created_at FROM members ORDER BY created_at DESC');
 function e(string $value): string { return htmlspecialchars($value, ENT_QUOTES, 'UTF-8'); }
 ?>

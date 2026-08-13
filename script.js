@@ -1,5 +1,6 @@
 "use strict";
 
+// JAVASCRIPT ENTRY POINT: initialize each feature after the HTML document is ready.
 document.addEventListener("DOMContentLoaded", () => {
   setupMobileNavigation();
   setupThemeButton();
@@ -11,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function setupMobileNavigation() {
+  // RESPONSIVE NAVIGATION: creates an accessible menu button for small screens.
   const header = document.querySelector("header");
   const navigation = header?.querySelector("nav");
   if (!header || !navigation) return;
@@ -56,6 +58,7 @@ function setupMobileNavigation() {
 }
 
 function setupCatalogueSearch() {
+  // CATALOGUE SEARCH: filters database-rendered book rows without a page reload.
   const form = document.querySelector("#catalogue-search");
   const input = document.querySelector("#search");
   const clearButton = document.querySelector("#clear-search");
@@ -91,6 +94,7 @@ function setupCatalogueSearch() {
 }
 
 function setupThemeButton() {
+  // THEME SWITCHER: remembers the visitor's preferred colour theme in localStorage.
   const navigation = document.querySelector("nav");
 
   if (!navigation) return;
@@ -126,6 +130,7 @@ function setupThemeButton() {
 }
 
 function setupWelcomeMessage() {
+  // PERSONALIZED WELCOME: saves and clears a visitor name using localStorage.
   const welcomeMessage = document.querySelector("#welcome-message");
   const welcomeNote = document.querySelector("#welcome-note");
   const welcomeForm = document.querySelector("#welcome-form");
@@ -189,6 +194,7 @@ function setupWelcomeMessage() {
 }
 
 function setupHomeInteractions() {
+  // HOME INTERACTIONS: random book recommendations and show/hide content.
   const recommendationButton = document.querySelector("#recommend-book");
   const recommendation = document.querySelector("#book-recommendation");
   const factButton = document.querySelector("#toggle-fact");
@@ -222,6 +228,7 @@ function setupHomeInteractions() {
 }
 
 function setupFormValidation() {
+  // CLIENT-SIDE VALIDATION: displays accessible errors before selected forms submit.
   document.querySelectorAll('#membership-form, form[data-demo-form]').forEach((form) => {
     form.noValidate = true;
     let message = form.querySelector(".form-message");
@@ -338,6 +345,7 @@ function getFieldErrorMessage(field) {
 }
 
 function setupGallerySelection() {
+  // ACCESSIBLE GALLERY: supports pointer, Enter, and Space interactions.
   const cards = document.querySelectorAll(".flip-card");
   const status = document.querySelector("#gallery-status");
 
