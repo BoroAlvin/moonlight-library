@@ -1,3 +1,10 @@
+<?php
+declare(strict_types=1);
+require __DIR__ . '/member_auth.php';
+requireMember();
+require __DIR__ . '/db.php';
+require __DIR__ . '/member_nav.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,27 +20,33 @@
     <h1>🌙 Moonlight Library</h1>
     <p><em>Where every page lights a new path.</em></p>
     <nav aria-label="Main navigation">
-      <a href="index.html" aria-current="page">Home</a>
-      <a href="catalogue.html">Book Catalogue</a>
-      <a href="events.html">Events</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="membership.html">Join the Library</a>
-      <a href="contact.html">Contact Us</a>
+      <a href="index.php" aria-current="page">Home</a>
+      <a href="catalogue.php">Book Catalogue</a>
+      <a href="events.php">Events</a>
+      <a href="gallery.php">Gallery</a>
+      <a href="contact.php">Contact Us</a>
+      <a href="member_logout.php">Log Out</a>
+      <?= memberProfileNavigation($mysqli) ?>
     </nav>
     <hr>
   </header>
 
   <main>
-    <section class="welcome-panel" aria-live="polite">
+    <section class="welcome-panel full-width" aria-live="polite">
       <h2 id="welcome-message">Welcome to Moonlight Library</h2>
       <p id="welcome-note">We are glad you stopped by.</p>
-      <button type="button" id="change-name">Personalise welcome</button>
+      <form id="welcome-form" class="welcome-form">
+        <label for="visitor-name">Your name</label>
+        <input type="text" id="visitor-name" name="visitor_name" maxlength="40" autocomplete="name" placeholder="Enter your name">
+        <button type="submit">Personalise welcome</button>
+        <button type="button" id="clear-name" class="secondary-button">Forget my name</button>
+      </form>
     </section>
 
     <section>
       <h2>Welcome, curious reader!</h2>
       <p>Moonlight Library is a community library for readers, researchers, dreamers, and lifelong learners. Explore our shelves, attend a reading circle, or find a quiet corner to study.</p>
-      <p><a href="membership.html"><strong>Become a member today →</strong></a></p>
+      <p><a href="member_profile.php"><strong>View your member profile →</strong></a></p>
     </section>
 
     <section>
@@ -54,17 +67,17 @@
       </ul>
     </section>
 
-    <section>
+    <section class="full-width">
       <h2>This week's spotlight</h2>
       <article>
         <h3>📖 The African Writers Shelf</h3>
         <p>Travel across the continent through novels, poetry, biographies, and folktales. This week's featured theme is <q>Stories that remember where we came from.</q></p>
-        <p><a href="catalogue.html#featured">See featured books</a></p>
+        <p><a href="catalogue.php#featured">See featured books</a></p>
       </article>
       <article>
         <h3>🎤 Saturday Story Circle</h3>
         <p><time datetime="2026-08-01T14:00">Saturday, 1 August 2026 at 2:00 p.m.</time></p>
-        <p>Bring a short story, poem, or simply your listening ears. <a href="events.html">View event details</a>.</p>
+        <p>Bring a short story, poem, or simply your listening ears. <a href="events.php">View event details</a>.</p>
       </article>
     </section>
 

@@ -1,3 +1,10 @@
+<?php
+declare(strict_types=1);
+require __DIR__ . '/member_auth.php';
+requireMember();
+require __DIR__ . '/db.php';
+require __DIR__ . '/member_nav.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,18 +19,19 @@
   <header id="top">
     <h1>📍 Contact Moonlight Library</h1>
     <nav aria-label="Main navigation">
-      <a href="index.html">Home</a>
-      <a href="catalogue.html">Book Catalogue</a>
-      <a href="events.html">Events</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="membership.html">Join the Library</a>
-      <a href="contact.html" aria-current="page">Contact Us</a>
+      <a href="index.php">Home</a>
+      <a href="catalogue.php">Book Catalogue</a>
+      <a href="events.php">Events</a>
+      <a href="gallery.php">Gallery</a>
+      <a href="contact.php" aria-current="page">Contact Us</a>
+      <a href="member_logout.php">Log Out</a>
+      <?= memberProfileNavigation($mysqli) ?>
     </nav>
     <hr>
   </header>
 
   <main>
-    <section>
+    <section class="supporting-card">
       <h2>Visit or reach us</h2>
       <address>
         Moonlight Library<br>
@@ -36,7 +44,7 @@
 
     <section>
       <h2>Send a message</h2>
-      <form action="contact.html" method="post">
+      <form action="contact.php" method="post">
         <p><label for="contact-name">Name:</label><br><input type="text" id="contact-name" name="name" required></p>
         <p><label for="contact-email">Email:</label><br><input type="email" id="contact-email" name="email" required></p>
         <p><label for="subject">Subject:</label><br><input type="text" id="subject" name="subject" list="subjects"></p>
@@ -47,7 +55,7 @@
       </form>
     </section>
 
-    <section>
+    <section class="full-width">
       <h2>Frequently asked questions</h2>
       <details><summary>How many books may I borrow?</summary><p>Members may borrow up to five books at a time.</p></details>
       <details><summary>How long may I keep a book?</summary><p>The standard loan period is 14 days.</p></details>

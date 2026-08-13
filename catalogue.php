@@ -1,3 +1,10 @@
+<?php
+declare(strict_types=1);
+require __DIR__ . '/member_auth.php';
+requireMember();
+require __DIR__ . '/db.php';
+require __DIR__ . '/member_nav.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,12 +19,13 @@
   <header id="top">
     <h1>📚 Book Catalogue</h1>
     <nav aria-label="Main navigation">
-      <a href="index.html">Home</a>
-      <a href="catalogue.html" aria-current="page">Book Catalogue</a>
-      <a href="events.html">Events</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="membership.html">Join the Library</a>
-      <a href="contact.html">Contact Us</a>
+      <a href="index.php">Home</a>
+      <a href="catalogue.php" aria-current="page">Book Catalogue</a>
+      <a href="events.php">Events</a>
+      <a href="gallery.php">Gallery</a>
+      <a href="contact.php">Contact Us</a>
+      <a href="member_logout.php">Log Out</a>
+      <?= memberProfileNavigation($mysqli) ?>
     </nav>
     <hr>
   </header>
@@ -25,13 +33,15 @@
   <main>
     <section>
       <h2>Find your next book</h2>
-      <form action="catalogue.html" method="get">
+      <form action="catalogue.php" method="get" id="catalogue-search">
         <p>
           <label for="search">Search by title or author:</label><br>
           <input type="search" id="search" name="q" placeholder="e.g. Things Fall Apart">
           <button type="submit">Search</button>
+          <button type="button" class="secondary-button" id="clear-search">Show all</button>
         </p>
       </form>
+      <p id="search-status" class="status-message" aria-live="polite">Browse all books or search by title or author.</p>
     </section>
 
     <section>
@@ -43,13 +53,13 @@
       </ol>
     </section>
 
-    <section id="fiction">
+    <section id="fiction" class="full-width">
       <h2>Fiction</h2>
       <table>
         <thead><tr><th scope="col">Title</th><th scope="col">Author</th><th scope="col">Format</th><th scope="col">Status</th></tr></thead>
         <tbody>
-          <tr><td>The Hobbit</td><td>J. R. R. Tolkien</td><td>Paperback</td><td>Available</td></tr>
-          <tr><td>Pride and Prejudice</td><td>Jane Austen</td><td>Hardcover</td><td>On loan</td></tr>
+          <tr class="book-row"><td>The Hobbit</td><td>J. R. R. Tolkien</td><td>Paperback</td><td><span class="status-badge available">Available</span></td></tr>
+          <tr class="book-row"><td>Pride and Prejudice</td><td>Jane Austen</td><td>Hardcover</td><td><span class="status-badge on-loan">On loan</span></td></tr>
           <tr><td>The Little Prince</td><td>Antoine de Saint-Exupéry</td><td>Paperback</td><td>Available</td></tr>
         </tbody>
       </table>
@@ -64,7 +74,7 @@
       </dl>
     </section>
 
-    <section id="featured">
+    <section id="featured" class="full-width">
       <h2>African Writers Shelf</h2>
       <table>
         <thead><tr><th scope="col">Title</th><th scope="col">Author</th><th scope="col">Genre</th></tr></thead>

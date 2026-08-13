@@ -12,18 +12,14 @@
   <header id="top">
     <h1>✨ Join Moonlight Library</h1>
     <nav aria-label="Main navigation">
-      <a href="index.html">Home</a>
-      <a href="catalogue.html">Book Catalogue</a>
-      <a href="events.html">Events</a>
-      <a href="gallery.html">Gallery</a>
       <a href="membership.html" aria-current="page">Join the Library</a>
-      <a href="contact.html">Contact Us</a>
+      <a href="member_login.php">Log In</a>
     </nav>
     <hr>
   </header>
 
   <main>
-    <section>
+    <section class="supporting-card">
       <h2>Membership benefits</h2>
       <ul>
         <li>Borrow up to five books for 14 days</li>
@@ -35,13 +31,14 @@
 
     <section>
       <h2>Application form</h2>
-      <form action="membership.html" method="post" id="membership-form" novalidate>
+      <form action="http://localhost/moonlight-library/process_membership.php" method="post" id="membership-form" novalidate>
         <div class="form-message" aria-live="polite"></div>
         <fieldset>
           <legend>Personal information</legend>
           <p><label for="full-name">Full name:</label><br><input type="text" id="full-name" name="full_name" required></p>
           <p><label for="birth-date">Date of birth:</label><br><input type="date" id="birth-date" name="birth_date" required></p>
           <p><label for="email">Email address:</label><br><input type="email" id="email" name="email" required></p>
+          <p><label for="password">Create password:</label><br><input type="password" id="password" name="password" minlength="8" autocomplete="new-password" required></p>
           <p><label for="phone">Phone number:</label><br><input type="tel" id="phone" name="phone" placeholder="+254 700 000 000"></p>
           <p><label for="address">Home address:</label><br><textarea id="address" name="address" rows="3" cols="35" required></textarea></p>
         </fieldset>

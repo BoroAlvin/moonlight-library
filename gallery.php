@@ -1,3 +1,10 @@
+<?php
+declare(strict_types=1);
+require __DIR__ . '/member_auth.php';
+requireMember();
+require __DIR__ . '/db.php';
+require __DIR__ . '/member_nav.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,24 +20,25 @@
     <h1>🖼️ Library Gallery</h1>
     <p><em>Turn each card over to discover our spaces.</em></p>
     <nav aria-label="Main navigation">
-      <a href="index.html">Home</a>
-      <a href="catalogue.html">Book Catalogue</a>
-      <a href="events.html">Events</a>
-      <a href="gallery.html" aria-current="page">Gallery</a>
-      <a href="membership.html">Join the Library</a>
-      <a href="contact.html">Contact Us</a>
+      <a href="index.php">Home</a>
+      <a href="catalogue.php">Book Catalogue</a>
+      <a href="events.php">Events</a>
+      <a href="gallery.php" aria-current="page">Gallery</a>
+      <a href="contact.php">Contact Us</a>
+      <a href="member_logout.php">Log Out</a>
+      <?= memberProfileNavigation($mysqli) ?>
     </nav>
   </header>
 
   <main>
-    <section class="gallery-intro">
+    <section class="gallery-intro full-width">
       <h2>A place for every kind of reader</h2>
       <p>Hover over a card—or focus it with your keyboard—to learn more about life inside Moonlight Library.</p>
       <p id="gallery-status" class="status-message" aria-live="polite">Select a card to mark your favourite library space.</p>
     </section>
 
-    <section class="gallery-grid" aria-label="Library photo gallery">
-      <figure class="flip-card" tabindex="0">
+    <section class="gallery-grid full-width" aria-label="Library photo gallery">
+      <figure class="flip-card" tabindex="0" role="button" aria-expanded="false" aria-label="The Grand Reading Hall: flip card and mark as favourite">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Tall shelves filled with books inside a library">
@@ -40,7 +48,7 @@
         </div>
       </figure>
 
-      <figure class="flip-card" tabindex="0">
+      <figure class="flip-card" tabindex="0" role="button" aria-expanded="false" aria-label="Quiet Study Zone: flip card and mark as favourite">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Library shelves and tables in a bright study area">
@@ -50,7 +58,7 @@
         </div>
       </figure>
 
-      <figure class="flip-card" tabindex="0">
+      <figure class="flip-card" tabindex="0" role="button" aria-expanded="false" aria-label="New Arrivals Table: flip card and mark as favourite">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="https://images.unsplash.com/photo-1526243741027-444d633d7365?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Open books arranged on a wooden table">
@@ -60,7 +68,7 @@
         </div>
       </figure>
 
-      <figure class="flip-card" tabindex="0">
+      <figure class="flip-card" tabindex="0" role="button" aria-expanded="false" aria-label="African Writers Shelf: flip card and mark as favourite">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Long library aisle between rows of bookshelves">
@@ -70,7 +78,7 @@
         </div>
       </figure>
 
-      <figure class="flip-card" tabindex="0">
+      <figure class="flip-card" tabindex="0" role="button" aria-expanded="false" aria-label="Window Reading Corner: flip card and mark as favourite">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Person reading a book beside a window">
@@ -80,7 +88,7 @@
         </div>
       </figure>
 
-      <figure class="flip-card" tabindex="0">
+      <figure class="flip-card" tabindex="0" role="button" aria-expanded="false" aria-label="Community Story Circle: flip card and mark as favourite">
         <div class="flip-card-inner">
           <div class="flip-card-front">
             <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Friends gathered together outdoors for a community activity">
