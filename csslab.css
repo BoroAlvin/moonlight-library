@@ -306,6 +306,32 @@ form {
   padding: 0.75rem 0;
 }
 
+.inline-status-form {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+  min-width: 260px;
+}
+
+.inline-status-form select {
+  min-width: 135px;
+}
+
+.inline-status-form button {
+  padding: 0.7rem 0.85rem;
+}
+
+.visually-hidden {
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
 fieldset {
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -711,6 +737,21 @@ footer a {
 .status-badge.on-loan {
   background: #fff0d6;
   color: #7a4a00;
+}
+
+.status-badge.loaned {
+  background: #fff0d6;
+  color: #7a4a00;
+}
+
+.status-badge.coming-soon {
+  background: #e8efff;
+  color: #244a91;
+}
+
+.status-badge.unavailable {
+  background: #f2f2f2;
+  color: #5b5b5b;
 }
 
 tr[hidden] {

@@ -62,7 +62,7 @@ function setupCatalogueSearch() {
   const status = document.querySelector("#search-status");
   if (!form || !input || !clearButton || !status) return;
 
-  const rows = [...document.querySelectorAll("#fiction tbody tr, #featured tbody tr")];
+  const rows = [...document.querySelectorAll(".book-row")];
   const filterBooks = () => {
     const query = input.value.trim().toLowerCase();
     let matches = 0;

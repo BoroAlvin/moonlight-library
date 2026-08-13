@@ -38,7 +38,7 @@ $events = $mysqli->query('SELECT id, title, event_date, event_time, venue FROM e
 function e(string $value): string { return htmlspecialchars($value, ENT_QUOTES, 'UTF-8'); }
 ?>
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="csslab.css"><title>Moonlight Library | Admin Profile</title></head>
-<body><header><h1>Admin profile</h1><p>Manage Moonlight Library content.</p><nav aria-label="Admin navigation"><a href="index.php">View site</a><a href="admin_profile.php" aria-current="page">Dashboard</a><a href="view_members.php">Members</a><a href="admin_logout.php">Sign out</a></nav></header>
+<body><header><h1>Admin profile</h1><p>Manage Moonlight Library content.</p><nav aria-label="Admin navigation"><a href="index.php">View site</a><a href="admin_profile.php" aria-current="page">Events</a><a href="admin_books.php">Books</a><a href="view_members.php">Members</a><a href="admin_logout.php">Sign out</a></nav></header>
 <main>
 <section><h2>Add an event</h2>
 <?php if ($success): ?><p class="form-message success-message" role="status">The event was published successfully.</p><?php endif; ?>

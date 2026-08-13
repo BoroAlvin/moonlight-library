@@ -10,7 +10,7 @@ function e(string $value): string { return htmlspecialchars($value, ENT_QUOTES, 
 <html lang="en">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="csslab.css"><title>Moonlight Library | Member Records</title></head>
 <body>
-<header><h1>Library Member Records</h1><nav aria-label="Admin navigation"><a href="index.php">View site</a><a href="admin_profile.php">Dashboard</a><a href="view_members.php" aria-current="page">Members</a><a href="admin_logout.php">Sign out</a></nav></header>
+<header><h1>Library Member Records</h1><nav aria-label="Admin navigation"><a href="index.php">View site</a><a href="admin_profile.php">Events</a><a href="admin_books.php">Books</a><a href="view_members.php" aria-current="page">Members</a><a href="admin_logout.php">Sign out</a></nav></header>
 <main><section class="full-width"><h2>Submitted memberships</h2><p>This table is retrieved live from the MySQL database using MySQLi.</p>
 <?php if ($result->num_rows === 0): ?><p class="form-message error-message">No membership records have been submitted yet.</p>
 <?php else: ?><div class="table-wrapper"><table><thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Type</th><th>Genre</th><th>Newsletter</th><th>Submitted</th></tr></thead><tbody>

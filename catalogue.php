@@ -4,6 +4,27 @@ require __DIR__ . '/member_auth.php';
 requireMember();
 require __DIR__ . '/db.php';
 require __DIR__ . '/member_nav.php';
+
+$categories = $mysqli->query(
+    'SELECT c.id, c.name, b.id AS book_id, b.title, b.author, b.format, b.status
+     FROM book_categories c
+     LEFT JOIN books b ON b.category_id = c.id
+     ORDER BY c.name, b.title'
+);
+$catalogue = [];
+while ($row = $categories->fetch_assoc()) {
+    $categoryId = (int) $row['id'];
+    $catalogue[$categoryId] ??= ['name' => $row['name'], 'books' => []];
+    if ($row['book_id'] !== null) $catalogue[$categoryId]['books'][] = $row;
+}
+
+$statusLabels = [
+    'available' => 'Available',
+    'loaned' => 'Loaned',
+    'coming_soon' => 'Coming Soon',
+    'unavailable' => 'Unavailable',
+];
+function e(string $value): string { return htmlspecialchars($value, ENT_QUOTES, 'UTF-8'); }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,83 +37,19 @@ require __DIR__ . '/member_nav.php';
   <title>Moonlight Library | Book Catalogue</title>
 </head>
 <body>
-  <header id="top">
-    <h1>📚 Book Catalogue</h1>
-    <nav aria-label="Main navigation">
-      <a href="index.php">Home</a>
-      <a href="catalogue.php" aria-current="page">Book Catalogue</a>
-      <a href="events.php">Events</a>
-      <a href="gallery.php">Gallery</a>
-      <a href="contact.php">Contact Us</a>
-      <a href="member_logout.php">Log Out</a>
-      <?= memberProfileNavigation($mysqli) ?>
-    </nav>
-    <hr>
-  </header>
-
-  <main>
-    <section>
-      <h2>Find your next book</h2>
-      <form action="catalogue.php" method="get" id="catalogue-search">
-        <p>
-          <label for="search">Search by title or author:</label><br>
-          <input type="search" id="search" name="q" placeholder="e.g. Things Fall Apart">
-          <button type="submit">Search</button>
-          <button type="button" class="secondary-button" id="clear-search">Show all</button>
-        </p>
-      </form>
-      <p id="search-status" class="status-message" aria-live="polite">Browse all books or search by title or author.</p>
-    </section>
-
-    <section>
-      <h2>Browse by category</h2>
-      <ol>
-        <li><a href="#fiction">Fiction</a></li>
-        <li><a href="#knowledge">Science &amp; Technology</a></li>
-        <li><a href="#featured">African Writers</a></li>
-      </ol>
-    </section>
-
-    <section id="fiction" class="full-width">
-      <h2>Fiction</h2>
-      <table>
-        <thead><tr><th scope="col">Title</th><th scope="col">Author</th><th scope="col">Format</th><th scope="col">Status</th></tr></thead>
-        <tbody>
-          <tr class="book-row"><td>The Hobbit</td><td>J. R. R. Tolkien</td><td>Paperback</td><td><span class="status-badge available">Available</span></td></tr>
-          <tr class="book-row"><td>Pride and Prejudice</td><td>Jane Austen</td><td>Hardcover</td><td><span class="status-badge on-loan">On loan</span></td></tr>
-          <tr><td>The Little Prince</td><td>Antoine de Saint-Exupéry</td><td>Paperback</td><td>Available</td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section id="knowledge">
-      <h2>Science &amp; Technology</h2>
-      <dl>
-        <dt><strong>A Brief History of Time</strong></dt><dd>Stephen Hawking — cosmology explained for general readers.</dd>
-        <dt><strong>Hidden Figures</strong></dt><dd>Margot Lee Shetterly — the people and mathematics behind a space-age achievement.</dd>
-        <dt><strong>HTML &amp; Web Design Basics</strong></dt><dd>A practical introduction to building pages for the web.</dd>
-      </dl>
-    </section>
-
-    <section id="featured" class="full-width">
-      <h2>African Writers Shelf</h2>
-      <table>
-        <thead><tr><th scope="col">Title</th><th scope="col">Author</th><th scope="col">Genre</th></tr></thead>
-        <tbody>
-          <tr><td>Things Fall Apart</td><td>Chinua Achebe</td><td>Historical fiction</td></tr>
-          <tr><td>Dust</td><td>Yvonne Adhiambo Owuor</td><td>Literary fiction</td></tr>
-          <tr><td>Weep Not, Child</td><td>Ngũgĩ wa Thiong'o</td><td>Historical fiction</td></tr>
-          <tr><td>Born a Crime</td><td>Trevor Noah</td><td>Memoir</td></tr>
-        </tbody>
-      </table>
-      <p><mark>Staff pick:</mark> <cite>Things Fall Apart</cite> by Chinua Achebe.</p>
-    </section>
-  </main>
-
-  <footer>
-    <hr>
-    <p><small>&copy; 2026 Moonlight Library</small></p>
-    <p><a href="#top">Back to top ↑</a></p>
-  </footer>
-</body>
-</html>
+<header id="top"><h1>📚 Book Catalogue</h1><nav aria-label="Main navigation"><a href="index.php">Home</a><a href="catalogue.php" aria-current="page">Book Catalogue</a><a href="events.php">Events</a><a href="gallery.php">Gallery</a><a href="contact.php">Contact Us</a><a href="member_logout.php">Log Out</a><?= memberProfileNavigation($mysqli) ?></nav></header>
+<main>
+  <section><h2>Find your next book</h2><form action="catalogue.php" method="get" id="catalogue-search"><p><label for="search">Search by title, author, category, format, or status:</label><br><input type="search" id="search" name="q" placeholder="e.g. Things Fall Apart"><button type="submit">Search</button> <button type="button" class="secondary-button" id="clear-search">Show all</button></p></form><p id="search-status" class="status-message" aria-live="polite">Browse all books or search the catalogue.</p></section>
+  <section><h2>Browse by category</h2><?php if (!$catalogue): ?><p>No categories have been added.</p><?php else: ?><ol><?php foreach ($catalogue as $categoryId => $category): ?><li><a href="#category-<?= $categoryId ?>"><?= e($category['name']) ?></a></li><?php endforeach; ?></ol><?php endif; ?></section>
+  <?php foreach ($catalogue as $categoryId => $category): ?>
+  <section id="category-<?= $categoryId ?>" class="full-width catalogue-category">
+    <h2><?= e($category['name']) ?></h2>
+    <?php if (!$category['books']): ?><p>No books in this category yet.</p><?php else: ?>
+    <div class="table-wrapper"><table><thead><tr><th scope="col">Title</th><th scope="col">Author</th><th scope="col">Format</th><th scope="col">Status</th></tr></thead><tbody>
+    <?php foreach ($category['books'] as $book): ?><tr class="book-row"><td><?= e($book['title']) ?></td><td><?= e($book['author']) ?></td><td><?= e($book['format']) ?></td><td><span class="status-badge <?= e(str_replace('_', '-', $book['status'])) ?>"><?= e($statusLabels[$book['status']] ?? ucfirst($book['status'])) ?></span></td></tr><?php endforeach; ?>
+    </tbody></table></div><?php endif; ?>
+  </section>
+  <?php endforeach; ?>
+</main>
+<footer><p><small>&copy; 2026 Moonlight Library</small></p><p><a href="#top">Back to top ↑</a></p></footer>
+</body></html>
