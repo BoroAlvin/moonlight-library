@@ -19,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($title === '' || mb_strlen($title) > 120) $errors[] = 'Enter an event title of up to 120 characters.';
     $dateValue = DateTimeImmutable::createFromFormat('!Y-m-d', $date);
     if (!$dateValue || $dateValue->format('Y-m-d') !== $date) $errors[] = 'Choose a valid event date.';
+    elseif ($dateValue < new DateTimeImmutable('today')) $errors[] = 'Event dates cannot be in the past.';
     if (!preg_match('/^(?:[01]\d|2[0-3]):[0-5]\d$/', $time)) $errors[] = 'Choose a valid event time.';
     if ($audience === '' || mb_strlen($audience) > 80) $errors[] = 'Enter the intended audience.';
     if ($venue === '' || mb_strlen($venue) > 120) $errors[] = 'Enter the event venue.';
@@ -45,7 +46,7 @@ function e(string $value): string { return htmlspecialchars($value, ENT_QUOTES, 
 <form method="post" action="admin_profile.php">
 <input type="hidden" name="csrf_token" value="<?= e(adminCsrfToken()) ?>">
 <p><label for="title">Event title</label><br><input id="title" name="title" maxlength="120" required value="<?= e($title ?? '') ?>"></p>
-<p><label for="event-date">Date</label><br><input type="date" id="event-date" name="event_date" required value="<?= e($date ?? '') ?>"></p>
+<p><label for="event-date">Date</label><br><input type="date" id="event-date" name="event_date" min="<?= e(date('Y-m-d')) ?>" required value="<?= e($date ?? '') ?>"></p>
 <p><label for="event-time">Time</label><br><input type="time" id="event-time" name="event_time" required value="<?= e($time ?? '') ?>"></p>
 <p><label for="audience">Audience</label><br><input id="audience" name="audience" maxlength="80" placeholder="e.g. Everyone" required value="<?= e($audience ?? '') ?>"></p>
 <p><label for="venue">Venue</label><br><input id="venue" name="venue" maxlength="120" required value="<?= e($venue ?? '') ?>"></p>

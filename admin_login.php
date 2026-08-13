@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 require __DIR__ . '/admin_auth.php';
-require __DIR__ . '/admin_config.php';
+require __DIR__ . '/db.php';
 
 if (adminIsLoggedIn()) {
     header('Location: admin_profile.php');
@@ -12,13 +12,23 @@ $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $validToken = isset($_POST['csrf_token'])
         && hash_equals(adminCsrfToken(), (string) $_POST['csrf_token']);
-    $validCredentials = $validToken
-        && hash_equals($adminUser, trim((string) ($_POST['username'] ?? '')))
-        && password_verify((string) ($_POST['password'] ?? ''), $adminPasswordHash);
+    $email = strtolower(trim((string) ($_POST['email'] ?? '')));
+    $validCredentials = false;
+
+    if ($validToken && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $statement = $mysqli->prepare('SELECT id, email, password_hash FROM administrators WHERE email = ? LIMIT 1');
+        $statement->bind_param('s', $email);
+        $statement->execute();
+        $admin = $statement->get_result()->fetch_assoc();
+        $validCredentials = $admin !== null
+            && password_verify((string) ($_POST['password'] ?? ''), $admin['password_hash']);
+    }
 
     if ($validCredentials) {
         session_regenerate_id(true);
         $_SESSION['admin_authenticated'] = true;
+        $_SESSION['admin_id'] = (int) $admin['id'];
+        $_SESSION['admin_email'] = $admin['email'];
         unset($_SESSION['admin_csrf']);
         $destination = $_SESSION['login_return_to'] ?? 'view_members.php';
         unset($_SESSION['login_return_to']);
@@ -26,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    $error = 'The username or password is incorrect.';
+    $error = 'The email address or password is incorrect.';
 }
 
 function e(string $value): string
@@ -43,7 +53,7 @@ function e(string $value): string
 <?php if ($error !== ''): ?><p class="form-message error-message" role="alert"><?= e($error) ?></p><?php endif; ?>
 <form method="post" action="admin_login.php">
   <input type="hidden" name="csrf_token" value="<?= e(adminCsrfToken()) ?>">
-  <p><label for="username">Username</label><br><input id="username" name="username" autocomplete="username" required autofocus></p>
+  <p><label for="email">Admin email</label><br><input type="email" id="email" name="email" autocomplete="username" required autofocus></p>
   <p><label for="password">Password</label><br><input type="password" id="password" name="password" autocomplete="current-password" required></p>
   <button type="submit">Sign in</button>
 </form></section></main>

@@ -22,14 +22,21 @@ $genre = clean('genre');
 $newsletter = isset($_POST['newsletter']) ? 1 : 0;
 $agreement = isset($_POST['agreement']);
 $allowedTypes = ['student', 'adult', 'senior'];
+$allowedGenres = ['Fiction', 'History', 'Science & Technology', 'Biography', 'Poetry'];
 $errors = [];
 
-if ($fullName === '') $errors[] = 'Full name is required.';
-if ($birthDate === '') $errors[] = 'Date of birth is required.';
+if ($fullName === '' || mb_strlen($fullName) > 100) $errors[] = 'Enter a full name of up to 100 characters.';
+$birthDateValue = DateTimeImmutable::createFromFormat('!Y-m-d', $birthDate);
+if (!$birthDateValue || $birthDateValue->format('Y-m-d') !== $birthDate) $errors[] = 'Enter a valid date of birth.';
+elseif ($birthDateValue > new DateTimeImmutable('today')) $errors[] = 'Date of birth cannot be in the future.';
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = 'A valid email address is required.';
+elseif (strlen($email) > 150) $errors[] = 'Email address must be 150 characters or fewer.';
 if (strlen($password) < 8) $errors[] = 'Password must contain at least 8 characters.';
-if ($address === '') $errors[] = 'Home address is required.';
+if (strlen($password) > 4096) $errors[] = 'Password is too long.';
+if (mb_strlen($phone) > 30) $errors[] = 'Phone number must be 30 characters or fewer.';
+if ($address === '' || mb_strlen($address) > 255) $errors[] = 'Enter a home address of up to 255 characters.';
 if (!in_array($type, $allowedTypes, true)) $errors[] = 'Choose a valid membership type.';
+if (!in_array($genre, $allowedGenres, true)) $errors[] = 'Choose a valid favourite genre.';
 if (!$agreement) $errors[] = 'You must agree to the library rules.';
 
 if (!$errors) {

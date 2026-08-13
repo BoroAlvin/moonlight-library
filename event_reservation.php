@@ -21,12 +21,19 @@ if ($action === 'reserve') {
     $statement = $mysqli->prepare('INSERT IGNORE INTO event_reservations (member_id, event_id) SELECT ?, id FROM events WHERE id = ? AND event_date >= CURRENT_DATE');
     $statement->bind_param('ii', $_SESSION['member_id'], $eventId);
     $statement->execute();
-    $message = $statement->affected_rows ? 'reserved' : 'already';
+    if ($statement->affected_rows) {
+        $message = 'reserved';
+    } else {
+        $lookup = $mysqli->prepare('SELECT EXISTS(SELECT 1 FROM event_reservations WHERE member_id = ? AND event_id = ?)');
+        $lookup->bind_param('ii', $_SESSION['member_id'], $eventId);
+        $lookup->execute();
+        $message = $lookup->get_result()->fetch_column() ? 'already' : 'invalid';
+    }
 } else {
     $statement = $mysqli->prepare('DELETE FROM event_reservations WHERE member_id = ? AND event_id = ?');
     $statement->bind_param('ii', $_SESSION['member_id'], $eventId);
     $statement->execute();
-    $message = 'cancelled';
+    $message = $statement->affected_rows ? 'cancelled' : 'invalid';
 }
 
 $returnTo = (string) ($_POST['return_to'] ?? 'events');

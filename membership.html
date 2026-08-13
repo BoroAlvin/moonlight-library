@@ -31,16 +31,16 @@
 
     <section>
       <h2>Application form</h2>
-      <form action="http://localhost/moonlight-library/process_membership.php" method="post" id="membership-form" novalidate>
+      <form action="process_membership.php" method="post" id="membership-form" novalidate>
         <div class="form-message" aria-live="polite"></div>
         <fieldset>
           <legend>Personal information</legend>
-          <p><label for="full-name">Full name:</label><br><input type="text" id="full-name" name="full_name" required></p>
+          <p><label for="full-name">Full name:</label><br><input type="text" id="full-name" name="full_name" maxlength="100" required></p>
           <p><label for="birth-date">Date of birth:</label><br><input type="date" id="birth-date" name="birth_date" required></p>
-          <p><label for="email">Email address:</label><br><input type="email" id="email" name="email" required></p>
-          <p><label for="password">Create password:</label><br><input type="password" id="password" name="password" minlength="8" autocomplete="new-password" required></p>
-          <p><label for="phone">Phone number:</label><br><input type="tel" id="phone" name="phone" placeholder="+254 700 000 000"></p>
-          <p><label for="address">Home address:</label><br><textarea id="address" name="address" rows="3" cols="35" required></textarea></p>
+          <p><label for="email">Email address:</label><br><input type="email" id="email" name="email" maxlength="150" autocomplete="email" required></p>
+          <p><label for="password">Create password:</label><br><input type="password" id="password" name="password" minlength="8" maxlength="4096" autocomplete="new-password" required></p>
+          <p><label for="phone">Phone number:</label><br><input type="tel" id="phone" name="phone" maxlength="30" autocomplete="tel" placeholder="+254 700 000 000"></p>
+          <p><label for="address">Home address:</label><br><textarea id="address" name="address" rows="3" cols="35" maxlength="255" autocomplete="street-address" required></textarea></p>
         </fieldset>
 
         <fieldset>

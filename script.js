@@ -222,7 +222,7 @@ function setupHomeInteractions() {
 }
 
 function setupFormValidation() {
-  document.querySelectorAll('form[method="post"]').forEach((form) => {
+  document.querySelectorAll('#membership-form, form[data-demo-form]').forEach((form) => {
     form.noValidate = true;
     let message = form.querySelector(".form-message");
 

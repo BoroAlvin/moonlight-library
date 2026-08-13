@@ -44,7 +44,7 @@ require __DIR__ . '/member_nav.php';
 
     <section>
       <h2>Send a message</h2>
-      <form action="contact.php" method="post">
+      <form action="contact.php" method="post" data-demo-form>
         <p><label for="contact-name">Name:</label><br><input type="text" id="contact-name" name="name" required></p>
         <p><label for="contact-email">Email:</label><br><input type="email" id="contact-email" name="email" required></p>
         <p><label for="subject">Subject:</label><br><input type="text" id="subject" name="subject" list="subjects"></p>

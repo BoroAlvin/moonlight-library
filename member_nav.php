@@ -15,7 +15,7 @@ function memberProfileNavigation(mysqli $mysqli, bool $onProfile = false): strin
         $filename = htmlspecialchars(basename($identity['avatar_filename']), ENT_QUOTES, 'UTF-8');
         $visual = '<img src="uploads/avatars/' . $filename . '" alt="' . $name . ' profile picture">';
     } else {
-        $initial = htmlspecialchars(strtoupper(substr($identity['full_name'], 0, 1)), ENT_QUOTES, 'UTF-8');
+        $initial = htmlspecialchars(mb_strtoupper(mb_substr($identity['full_name'], 0, 1)), ENT_QUOTES, 'UTF-8');
         $visual = '<span aria-hidden="true">' . $initial . '</span>';
     }
 

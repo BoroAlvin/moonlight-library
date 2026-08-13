@@ -22,7 +22,10 @@ if (isset($_POST['remove_avatar'])) {
     $update = $mysqli->prepare('UPDATE members SET avatar_filename = NULL WHERE id = ?');
     $update->bind_param('i', $memberId);
     $update->execute();
-    if ($currentAvatar) @unlink($avatarDirectory . '/' . basename((string) $currentAvatar));
+    if ($currentAvatar) {
+        $oldAvatar = $avatarDirectory . '/' . basename((string) $currentAvatar);
+        if (is_file($oldAvatar)) unlink($oldAvatar);
+    }
     header('Location: member_profile.php?avatar=removed#edit-profile');
     exit;
 }
@@ -40,7 +43,10 @@ if (!isset($extensions[$mime]) || @getimagesize($upload['tmp_name']) === false) 
     exit;
 }
 
-if (!is_dir($avatarDirectory)) mkdir($avatarDirectory, 0755, true);
+if (!is_dir($avatarDirectory) && !mkdir($avatarDirectory, 0755, true) && !is_dir($avatarDirectory)) {
+    header('Location: member_profile.php?avatar=failed#edit-profile');
+    exit;
+}
 $filename = 'member-' . $memberId . '-' . bin2hex(random_bytes(8)) . '.' . $extensions[$mime];
 if (!move_uploaded_file($upload['tmp_name'], $avatarDirectory . '/' . $filename)) {
     header('Location: member_profile.php?avatar=failed#edit-profile');
@@ -50,6 +56,9 @@ if (!move_uploaded_file($upload['tmp_name'], $avatarDirectory . '/' . $filename)
 $update = $mysqli->prepare('UPDATE members SET avatar_filename = ? WHERE id = ?');
 $update->bind_param('si', $filename, $memberId);
 $update->execute();
-if ($currentAvatar) @unlink($avatarDirectory . '/' . basename((string) $currentAvatar));
+if ($currentAvatar) {
+    $oldAvatar = $avatarDirectory . '/' . basename((string) $currentAvatar);
+    if (is_file($oldAvatar)) unlink($oldAvatar);
+}
 header('Location: member_profile.php?avatar=updated#edit-profile');
 exit;
